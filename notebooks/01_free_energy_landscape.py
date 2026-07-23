@@ -5,6 +5,9 @@ import matplotlib.pyplot as plt
 
 def F(y1,y2):
     '''Function to calculate the free energy landscape, eq.2 in the paper'''
+# The exact parameters used in the paper's example figures are not
+# publicly reported. So I use a synthetic symmetric configuration
+# that produces a clear bistable landscape. These are not empirical estimates.
     L1=L2=300
     L12=100
     T1=T2=250
@@ -109,4 +112,75 @@ def validate_gradient():
 
     print("Gradient validation passed") 
 
+# %%
+# %%
+def plot_drift_field():
+    """Plot the deterministic drift using nested loops."""
+
+    # Values where the arrows will be placed
+    y_arrows = np.linspace(0.05, 0.95, 15)
+
+    # Matrices for the arrow positions
+    A1, A2 = np.meshgrid(y_arrows, y_arrows)
+
+    # Empty matrices for the arrow directions
+    U = np.zeros((15, 15))
+    V = np.zeros((15, 15))
+
+    # Calculate the drift at every point
+    for i, y2 in enumerate(y_arrows):
+        for j, y1 in enumerate(y_arrows):
+
+            dF_dy1, dF_dy2 = grad_F(y1, y2)
+
+            U[i, j] = -dF_dy1
+            V[i, j] = -dF_dy2
+
+    # Calculate the length of every arrow
+    magnitude = np.sqrt(U**2 + V**2)
+
+    # Avoid division by zero
+    magnitude = np.where(magnitude == 0, 1, magnitude)
+
+    # Normalize the arrows
+    U_normalized = U / magnitude
+    V_normalized = V / magnitude
+
+    # Plot the energy landscape calculated previously
+    plt.figure(figsize=(8, 6))
+
+    contour = plt.contourf(
+        Y1,
+        Y2,
+        Z,
+        levels=30,
+        cmap="viridis"
+    )
+
+    plt.colorbar(contour, label="Free energy")
+
+    # Plot the arrows
+    plt.quiver(
+        A1,
+        A2,
+        U_normalized,
+        V_normalized,
+        color="white",
+        pivot="middle"
+    )
+
+    plt.xlabel("Positive affect $y_1$")
+    plt.ylabel("Negative affect $y_2$")
+    plt.title("Deterministic drift on the free-energy landscape")
+
+    plt.savefig(
+        "results/figures/drift_field.png",
+        dpi=300,
+        bbox_inches="tight"
+    )
+
+    plt.show()
+
+
+plot_drift_field()
 # %%
