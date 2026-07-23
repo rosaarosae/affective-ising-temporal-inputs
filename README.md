@@ -36,8 +36,8 @@ This repository currently contains documentation and project structure only. The
 
 - [x] Create the repository structure
 - [x] Document the project scope and reproducibility workflow
-- [ ] Record the model equations from the main paper
-- [ ] Reproduce the free-energy function and gradient
+- [x] Record the model equations from the main paper
+- [x] Reproduce the free-energy function and gradient
 - [ ] Derive or reproduce the stationary density
 - [ ] Implement the Euler–Maruyama simulation
 - [ ] Validate simulated stationary distributions against theory
