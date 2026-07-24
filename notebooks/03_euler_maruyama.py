@@ -53,13 +53,13 @@ def euler_maruyama(y0, dt, T, D, seed=None):
 
     return times, traj
 # %%
-#we put a random individual trajectory to see how it looks like, we will use the same parameters as in the paper
+#we put a random individual trajectory to see how it looks like. These values are not participant estimates from the paper.
 # %%
 y0 = np.array([0.95, 0.05])
 
 times, trajectory = euler_maruyama(
     y0=y0,
-    dt=0.001,
+    dt=0.0005,
     T=10,
     D=0.01,
     seed=42
@@ -77,9 +77,10 @@ plt.ylabel("Affective state")
 plt.title("Euler-Maruyama trajectory")
 plt.ylim(0, 1)
 plt.legend()
-plt.savefig(
-    PROJECT_ROOT / "results/figures/euler_maruyama_trajectory.png",
-    dpi=300,
-    bbox_inches="tight"
-)
+
 plt.show()
+lower_hits = np.sum(trajectory <= 0.00001)
+upper_hits = np.sum(trajectory >= 0.99999)
+
+print("Lower boundary hits:", lower_hits)
+print("Upper boundary hits:", upper_hits)
