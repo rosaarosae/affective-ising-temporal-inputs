@@ -91,10 +91,34 @@ plt.ylabel(
     "Negative affect $y_2$"
 )
 
-plt.savefig(
-    "results/figures/stationary_density.png",
-    dpi=300,
-    bbox_inches="tight"
-)
+
 
 plt.show()  
+
+#Tests that I make to see if the stationary density is normalized correctly. The total probability should be 1.
+print("Total probability:", total_probability)  
+max_index = np.unravel_index(
+    np.argmax(stationary_density),
+    stationary_density.shape
+)
+
+max_y_index, max_x_index = max_index
+
+print(
+    "Maximum density location:",
+    x[max_x_index],
+    y[max_y_index]
+)
+
+print(
+    "Maximum density:",
+    stationary_density[max_index]
+)
+symmetry_error = np.max(
+    np.abs(
+        stationary_density
+        - stationary_density.T
+    )
+)
+
+print("Symmetry error:", symmetry_error)
