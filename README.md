@@ -38,8 +38,8 @@ This repository currently contains documentation and project structure only. The
 - [x] Document the project scope and reproducibility workflow
 - [x] Record the model equations from the main paper
 - [x] Reproduce the free-energy function and gradient
-- [ ] Derive or reproduce the stationary density
-- [ ] Implement the Euler–Maruyama simulation
+- [x] Derive or reproduce the stationary density
+- [x] Implement the Euler–Maruyama simulation
 - [ ] Validate simulated stationary distributions against theory
 - [ ] Add temporary negative external inputs
 - [ ] Estimate switching probability
